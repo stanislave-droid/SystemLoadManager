@@ -17,17 +17,24 @@ int main() {
 	/* Memory monitor*/
 
 	Memory_M memory_m;
-	Memory_M::MemoryLoad memoryLoad = memory_m.GetMeasurements();
-	thread thread(Memory_M::RunMemoryMeasurements, 100, ref(memoryLoad));
-
-	/* Console out */
+	auto memoryLoad = memory_m.memoryLoad;
 
 	while (true) {
-		cout << memoryLoad.memory_total << " " << memoryLoad.memory_measurement << " "
-		<< "(" << memoryLoad.memory_free << "/" << 
-			      memoryLoad.memory_total << 
-			")" << memoryLoad.memory_measurement << " "
-		<< memoryLoad.memory_load << "%" << endl;
+		/* Static measurements */
+		memory_m.RunMemoryMeasurements();
+
+		/* Pre-measurements */
+
 		Sleep(100);
+
+		/* Final measurements */
+
+		/* Console out */
+
+		cout << memoryLoad->memory_total << " " << memoryLoad->memory_measurement << " "
+			<< "(" << memoryLoad->memory_free << "/" <<
+			memoryLoad->memory_total <<
+			")" << memoryLoad->memory_measurement << " "
+			<< memoryLoad->memory_load << "%" << endl;
 	}
 }

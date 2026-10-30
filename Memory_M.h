@@ -2,6 +2,7 @@
 #include <string>
 #include "Memory_M.h"
 #include <Windows.h>
+#include <memory>
 
 class Memory_M
 {
@@ -12,14 +13,13 @@ public:
 		int memory_total = 0;
 		char memory_measurement[2] = { 'M','b' };
 	};
-
+	MEMORYSTATUSEX memStatusEx;
+	std::shared_ptr<MemoryLoad> memoryLoad;
 private:
-	MemoryLoad memoryLoad;
-	static int GetMemoryLoad();
-	static int GetAvailableMemory();
+	void GetMemoryLoad();
+	void GetAvailableMemory();
 public:
 	Memory_M();
-	static void RunMemoryMeasurements(int delay, MemoryLoad &memoryLoad);
-	MemoryLoad GetMeasurements();
+	void RunMemoryMeasurements();
 };
 

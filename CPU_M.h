@@ -10,5 +10,5 @@ public:
 	CPU_M();
 	unsigned int GetAvailableCPUThreads();
 	double GetCPUUsage();
+	
 };
-
