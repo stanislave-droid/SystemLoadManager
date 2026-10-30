@@ -1,14 +1,39 @@
 #pragma once
 #include <windows.h>
 #include <thread>
+#include <cstring>
+#include <cmath>
+#include <vector>
 
 class CPU_M
 {
-	unsigned int availableThreads;
-
 public:
+	struct CPULoad {
+		double cpu_load = 0.0;
+		double cpu_base_speed = 0.0;
+		unsigned int cpu_cores = 0;
+		unsigned int availableThreads = 1;
+	};
+
+	struct Measurement {
+		__int64 idleTime = 0;
+		__int64 kernelTime = 0;
+		__int64 userTime = 0;
+	};
+private:
+	void FileTimeToInt64(const FILETIME& ft, __int64& int64);
+	void GetMeasurements(Measurement& measurement);
+	void CalculateCPULoad();
+	void RoundToDecimal(double& value, int decimals);
+	void GetCPUCoresCount();
+	void GetCPUBaseSpeed();
+	Measurement firstMeasurement;
+	Measurement secondMeasurement;
+public:
+
+	std::shared_ptr<CPULoad> cpuLoad;
 	CPU_M();
-	unsigned int GetAvailableCPUThreads();
-	double GetCPUUsage();
+	void RunFirstMeasurements();
+	void RunSecondMeasurements();
 	
 };

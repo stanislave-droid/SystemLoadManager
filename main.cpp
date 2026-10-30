@@ -12,7 +12,10 @@ int main() {
 	/* CPU monitor */
 
 	CPU_M cpu_m;
-	cout << "Physical processors: " << cpu_m.GetAvailableCPUThreads() << endl;
+	auto cpuLoad = cpu_m.cpuLoad;
+	cout << "Physical processors: " << cpuLoad->cpu_cores << endl;
+	cout << "Available Threads: " << cpuLoad->availableThreads << endl;
+	cout << "CPU base speed: " << cpuLoad->cpu_base_speed << "Ghz" << endl;
 
 	/* Memory monitor*/
 
@@ -24,10 +27,12 @@ int main() {
 		memory_m.RunMemoryMeasurements();
 
 		/* Pre-measurements */
+		cpu_m.RunFirstMeasurements();
 
 		Sleep(100);
 
 		/* Final measurements */
+		cpu_m.RunSecondMeasurements();
 
 		/* Console out */
 
@@ -36,5 +41,6 @@ int main() {
 			memoryLoad->memory_total <<
 			")" << memoryLoad->memory_measurement << " "
 			<< memoryLoad->memory_load << "%" << endl;
+		cout << "CPU load: " << cpuLoad->cpu_load << "%" << endl;
 	}
 }
