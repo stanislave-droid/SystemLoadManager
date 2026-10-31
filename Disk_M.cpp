@@ -35,7 +35,7 @@ void Disk_M::GetDiskInfo()
 		auto info = std::make_shared<DiskInfo>();
 		ULARGE_INTEGER freeBytes, totalBytes, totalFreeBytes;
 
-		info->disk_name = drive;
+		wstringToString(drive, info->disk_name);
 
 		if (GetDiskFreeSpaceExW(drive.c_str(), &freeBytes, &totalBytes, &totalFreeBytes)) {
 			BytesToGB(totalBytes.QuadPart, info->total_size);
@@ -53,6 +53,17 @@ void Disk_M::GetDiskInfo()
 void Disk_M::BytesToGB(unsigned long long bytes, unsigned long long& gb)
 {
 	gb = bytes / (1024ULL * 1024 * 1024);
+}
+
+void Disk_M::wstringToString(const std::wstring& wstr, std::string& str)
+{
+	if (wstr.empty()) {
+		str.clear();
+		return;
+	}
+
+	std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
+	str = converter.to_bytes(wstr);
 }
 
 Disk_M::Disk_M()

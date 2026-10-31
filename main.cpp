@@ -4,8 +4,10 @@
 #include "CPU_M.h"
 #include "Disk_M.h"
 #include <thread>
+#include "tabulate.hpp"
 
 using namespace std;
+
 
 int main() {
 	std::cout << "Hello world" << std::endl;
@@ -24,13 +26,27 @@ int main() {
 	auto memoryLoad = memory_m.memoryLoad;
 
 	/* Disk monitor */
-
 	Disk_M disk_m;
-	for(const auto& diskInfo : disk_m.disksInfo) {
-		wcout << "Disk name: " << diskInfo->disk_name << endl;
-		cout << "Total size: " << diskInfo->total_size << diskInfo->disk_measurement << endl;
-		cout << "Total free: " << diskInfo->total_free << diskInfo->disk_measurement << endl;
-		cout << "Total used: " << diskInfo->total_used << diskInfo->disk_measurement << endl;
+	auto disksInfo = disk_m.disksInfo;
+
+	using namespace tabulate; {
+		Table table;
+		table.format().multi_byte_characters(true);
+		table.add_row({"Disk name", "Free space", "Used space", "Total space"});
+
+		for (const auto& diskInfo : disksInfo) {
+			table.add_row({
+				diskInfo->disk_name,
+				std::to_string(diskInfo->total_free) + " " + diskInfo->disk_measurement,
+				std::to_string(diskInfo->total_used) + " " + diskInfo->disk_measurement,
+				std::to_string(diskInfo->total_size) + " " + diskInfo->disk_measurement,
+			});
+
+			table[table.size() - 1][1].format().font_background_color(Color::green);
+			table[table.size() - 1][2].format().font_background_color(Color::red);
+			table[table.size() - 1][3].format().font_background_color(Color::blue);
+		}
+		cout << table << endl;
 	}
 
 	while (true) {
