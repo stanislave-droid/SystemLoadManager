@@ -2,6 +2,7 @@
 #include <Windows.h>
 #include "Memory_M.h"
 #include "CPU_M.h"
+#include "Disk_M.h"
 #include <thread>
 
 using namespace std;
@@ -21,6 +22,16 @@ int main() {
 
 	Memory_M memory_m;
 	auto memoryLoad = memory_m.memoryLoad;
+
+	/* Disk monitor */
+
+	Disk_M disk_m;
+	for(const auto& diskInfo : disk_m.disksInfo) {
+		wcout << "Disk name: " << diskInfo->disk_name << endl;
+		cout << "Total size: " << diskInfo->total_size << diskInfo->disk_measurement << endl;
+		cout << "Total free: " << diskInfo->total_free << diskInfo->disk_measurement << endl;
+		cout << "Total used: " << diskInfo->total_used << diskInfo->disk_measurement << endl;
+	}
 
 	while (true) {
 		/* Static measurements */

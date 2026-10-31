@@ -27,12 +27,18 @@
     <ClCompile Include="Memory_M.cpp">
       <Filter>Source Files\Monitoring_Fn</Filter>
     </ClCompile>
+    <ClCompile Include="Disk_M.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CPU_M.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Memory_M.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Disk_M.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
