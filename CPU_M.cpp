@@ -15,6 +15,15 @@ CPU_M::CPU_M()
 	GetCPUBaseSpeed();
 }
 
+std::string CPU_M::DoubleToString(double value, int precision)
+{
+	std::ostringstream stream;
+
+	stream << std::fixed << std::setprecision(precision) << value;
+
+	return stream.str();
+}
+
 void CPU_M::GetMeasurements(Measurement& measurement)
 {
 	FILETIME idleTime, kernelTime, userTime;

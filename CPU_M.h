@@ -4,6 +4,9 @@
 #include <cstring>
 #include <cmath>
 #include <vector>
+#include <string>
+#include <sstream>
+#include <iomanip>
 
 class CPU_M
 {
@@ -33,6 +36,7 @@ public:
 
 	std::shared_ptr<CPULoad> cpuLoad;
 	CPU_M();
+	static std::string DoubleToString(double value, int precision = 1);
 	void RunFirstMeasurements();
 	void RunSecondMeasurements();
 	
