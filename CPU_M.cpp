@@ -52,7 +52,7 @@ void CPU_M::CalculateCPULoad()
 
 	__int64 totalTimeDiff = kernelTimeDiff + userTimeDiff;
 
-	cpuLoad->cpu_load = (totalTimeDiff - idleTimeDiff) * 100.0 / idleTimeDiff;
+	cpuLoad->cpu_load = (totalTimeDiff - idleTimeDiff) * 100.0 / totalTimeDiff;
 	RoundToDecimal(cpuLoad->cpu_load, 1);
 }
 

@@ -23,6 +23,7 @@ public:
 		__int64 kernelTime = 0;
 		__int64 userTime = 0;
 	};
+
 private:
 	void FileTimeToInt64(const FILETIME& ft, __int64& int64);
 	void GetMeasurements(Measurement& measurement);

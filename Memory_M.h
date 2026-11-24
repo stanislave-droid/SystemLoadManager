@@ -13,6 +13,7 @@ public:
 		int memory_total = 0;
 		char memory_measurement[2] = { 'M','b' };
 	};
+
 	MEMORYSTATUSEX memStatusEx;
 	std::shared_ptr<MemoryLoad> memoryLoad;
 private:

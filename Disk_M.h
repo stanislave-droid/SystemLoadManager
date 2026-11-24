@@ -16,6 +16,7 @@ public:
 		unsigned long long total_used = 0;
 		char disk_measurement[2] = { 'G','B' };
 	};
+
 private:
 	void GetDiskCount();
 	void GetDiskInfo();
